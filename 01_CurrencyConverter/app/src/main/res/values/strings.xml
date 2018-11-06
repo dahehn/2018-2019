@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">01_CurrencyConverter</string>
+    <string name="conDol">Convert to Dollar</string>
+    <string name="conEu">Convert to Euro</string>
+</resources>
