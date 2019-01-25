@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/add_bookmark"
+        android:onClick="addBookmarkClick"
+        android:title="Add Bookmark" />
+    <item
+        android:id="@+id/clear_list"
+        android:onClick="clearListClick"
+        android:title="Clear List" />
+    <item
+        android:id="@+id/loadLinks"
+        android:onClick="loadLinkClick"
+        android:title="Load Links" />
+    <item
+        android:id="@+id/saveLinks"
+        android:onClick="saveLinkClick"
+        android:title="Save Links" />
+</menu>
