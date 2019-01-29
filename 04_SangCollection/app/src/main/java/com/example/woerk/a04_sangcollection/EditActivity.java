@@ -1,4 +1,4 @@
-package com.example.woerk.a04_songcollection;
+package com.example.woerk.a04_sangcollection;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 public class EditActivity extends AppCompatActivity {
-
 
     public static final int REQUEST_CODE_ADD_SONG = 10001;
     public static final int REQUEST_CODE_MODIFY_SONG = 10002;
