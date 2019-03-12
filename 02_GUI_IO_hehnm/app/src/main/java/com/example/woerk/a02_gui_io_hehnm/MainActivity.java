@@ -16,7 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
 
     EditText lastname , income, birthdate, firstname;
     private  static final String key_firstname="key_firstname";
