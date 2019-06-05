@@ -1,6 +1,8 @@
 package com.example.recorder;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaExtractor;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
@@ -21,8 +23,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button start, stopbtn;
-    private MediaRecorder mRecorder;
+
     private static final String LOG_TAG = "AudioRecording";
     private static String mFileName = null;
     public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
@@ -30,50 +31,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        start = (Button)findViewById(R.id.buttonStart);
-        stopbtn = (Button)findViewById(R.id.buttonStop);
-        stopbtn.setEnabled(false);
 
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/AudioRecording.3gp";
+    }
+    public void start(View view){
+        if(CheckPermissions()) {
+            Toast.makeText(getApplicationContext(), "Recording Started", Toast.LENGTH_LONG).show();
+            startRecording(true);
+        }
+        else
+        {
+            RequestPermissions();
+        }
+    }
 
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(CheckPermissions()) {
-                    stopbtn.setEnabled(true);
-                    start.setEnabled(false);
-                    mRecorder = new MediaRecorder();
-                    mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                    mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                    mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                    mRecorder.setOutputFile(mFileName);
-                    try {
-                        mRecorder.prepare();
-                    } catch (IOException e) {
-                        Log.e(LOG_TAG, "prepare() failed");
-                    }
-                    mRecorder.start();
-                    Toast.makeText(getApplicationContext(), "Recording Started", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    RequestPermissions();
-                }
-            }
-        });
-        stopbtn.setOnClickListener(new View.OnClickListener() {
+    public void stop(View view){
+       startRecording(false);
 
-            @Override
-            public void onClick(View v) {
-                stopbtn.setEnabled(false);
-                start.setEnabled(true);
-                mRecorder.stop();
-                mRecorder.release();
-                mRecorder = null;
-                Toast.makeText(getApplicationContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
-            }
-        });
+        Toast.makeText(getApplicationContext(), "Recording Stopped", Toast.LENGTH_LONG).show();
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -97,5 +73,13 @@ public class MainActivity extends AppCompatActivity {
     }
     private void RequestPermissions() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, REQUEST_AUDIO_PERMISSION_CODE);
+    }
+    private void startRecording(boolean start){
+        Toast.makeText(this, "down", Toast.LENGTH_LONG).show();
+        //start a intent
+        Intent intent = new Intent(this, recordService.class);
+        //append the type
+        intent.putExtra("Start",start);
+        startService(intent);
     }
 }
