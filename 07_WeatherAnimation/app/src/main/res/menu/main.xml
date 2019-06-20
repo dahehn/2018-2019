@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/precip"
+        android:onClick="precipClick"
+        android:title="Niederschlag" />
+    <item
+        android:id="@+id/cloud"
+        android:onClick="cloudClick"
+        android:title="Bewölkung" />
+    <item
+        android:id="@+id/Temperatur"
+        android:onClick="tempClick"
+        android:title="temp" />
+</menu>
