@@ -18,23 +18,18 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import static android.Manifest.permission.RECORD_AUDIO;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private static final String LOG_TAG = "AudioRecording";
-    private static String mFileName = null;
+    public final static int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1234;
     public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        mFileName += "/AudioRecording.3gp";
     }
+
     public void start(View view){
         if(CheckPermissions()) {
             Toast.makeText(getApplicationContext(), "Recording Started", Toast.LENGTH_LONG).show();
@@ -66,16 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-    public boolean CheckPermissions() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
-    }
-    private void RequestPermissions() {
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, REQUEST_AUDIO_PERMISSION_CODE);
-    }
+
     private void startRecording(boolean start){
-        Toast.makeText(this, "down", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "start", Toast.LENGTH_LONG).show();
         //start a intent
         Intent intent = new Intent(this, recordService.class);
         //append the type
